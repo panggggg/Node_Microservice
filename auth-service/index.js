@@ -1,8 +1,10 @@
 const express = require("express");
-const { JsonWebTokenError } = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const app = express();
 const mongoose = require('mongoose');
 const User = require('./user');
+
+app.use(express.json());
 
 mongoose.connect("mongodb://localhost/auth-service", {
     useNewUrlParser: true,
@@ -52,8 +54,6 @@ app.post("/auth/register", async (req, res) => {
         return res.json(newUser);
     }
 });
-
-app.use(express.json());
 
 app.listen(7070, () => {
     console.log("Auth-Service at 7070");
